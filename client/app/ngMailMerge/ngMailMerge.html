@@ -1,0 +1,94 @@
+
+<button ng-click="showPopup = true">{{labelButton}}</button>
+<div ng-show="showPopup">
+	<div class="popup-overlay" ng-click="closeOverlay()" role="button" tabindex="0"></div>
+	<div  class="merge-popup" >
+		<div ng-show="dataid || tableid ">
+			<div><a ng-show="dataLength>0 && currentIndex>0" ng-click="previous()"> < </a> {{current[1]}} <a ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()"> > </a></div>
+			<div ng-show="dataLength>0">{{currentIndex+1}} of {{dataLength}}</div>
+		</div>
+		<div style="float:left;width:50%">
+			<div class="email" ng-show="sendEmail">
+				<div>
+				 To <input type="text"  ng-model="email.to"> 
+				 </div>
+				 <div>
+				 CC <input type="text"  ng-model="email.cc"> 
+				 </div>
+				 <div>
+				 BCC <input type="text"  ng-model="email.bcc">
+				 </div>
+				 <div>
+				 Subject <input type="text" ng-model="email.subject">
+				 </div>
+
+				<div>
+				<span>Other information:</span>
+					<div id="form"></div>
+				</div>
+
+				<div ng-show="!sendhtml">
+				<span>Email Body</span>
+					<textarea ng-model="mailMerge.email.text"  rows="5" cols="50">						
+					</textarea>
+				</div>
+
+				<div ng-show="dataid || tableid ">
+					<textarea ng-change="parseCSV()" ng-model="csvData" id="{{dataid}}" rows="5" cols="50">
+						
+					</textarea>
+				</div>
+			</div>
+
+			<div>
+				<input bs-switch ng-model="attachpdf" type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">  Attach below document to the message?
+			</div>
+
+			<div ng-show="mailMerge.doc.outputpdf">
+				<div id="doc_preview"></div>
+			</div>
+
+			<button ng-click="sendEmail()">{{labelButtonPopup}}</button>
+
+		</div>
+
+		<div ng-show="sendEmail">
+			<span>{{previewText}}</span>
+			<div>
+				To {{email.to}}
+			 </div>
+			 <div>
+			 CC  {{email.cc}}
+			 </div>
+			 <div>
+			 BCC {{email.bcc}}
+			 </div>
+			 <div>
+			 Subject {{email.subject}}
+			 </div>
+			 <div ng-show="sendhtml">
+			 	<div ng-hide="edit" ng-click="edit = true " style="
+			 	color:rgb(66,133,244)">
+					View Email source
+			 	</div>
+
+			 	<div ng-show="edit" ng-click="edit = false;refresh()" style="
+			 	color:rgb(66,133,244)">
+			 		 View Email
+			 	</div>
+
+			 	<textarea ng-model="mailMerge.email.html" ng-show="edit" id="data_row" rows="5" cols="50">						
+				</textarea>
+
+			 </div>
+			 <div id="preview" ng-show="sendhtml"></div>
+			 <div id="preview-temp" ng-hide="true"></div>
+			 <div ng-show="!sendhtml">
+			 <div>Body:</div>
+			 	{{mailMerge.email.text}}
+			 </div>
+		</div>
+
+		 
+	</div>
+</div>
