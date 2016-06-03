@@ -66,7 +66,7 @@ angular.module('mailMergeApp')
 
       	if($scope.tableid){
       		setTimeout(function(){
-      			var table = $('#example').DataTable();
+      			var table = $('#'+$scope.tableid).DataTable();
       			var el = $('.input-sm')[1];
       			prepareTableData(table)
       			$(el).bind('input', function(){
