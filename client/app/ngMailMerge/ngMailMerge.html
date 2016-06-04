@@ -1,13 +1,13 @@
 
 <button ng-click="showPopup = true">{{labelButton}}</button>
-<div ng-show="showPopup">
-	<div class="popup-overlay" ng-click="showPopup = false" role="button" tabindex="0"></div>
+<div ng-if="showPopup">
+	<div class="popup-overlay" ng-click="$parent.showPopup = false" role="button" tabindex="0"></div>
 	<div  class="merge-popup" >
 		<div ng-show="dataid || tableid ">
 			<div><a ng-show="dataLength>0 && currentIndex>0" ng-click="previous()"> < </a> {{current[5]}} <a ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()"> > </a></div>
 			<div ng-show="dataLength>0">{{currentIndex+1}} of {{dataLength}}</div>
 		</div>
-		<div style="float:left;width:50%">
+		<div class="float">
 			<div class="email" ng-show="sendEmail">
 
 				<div>
@@ -22,14 +22,14 @@
 				</div>
 			</div>
 
-			<div ng-show="dataid || tableid ">
-					<textarea ng-change="parseCSV()" ng-model="csvData" id="{{dataid}}" rows="5" cols="50">
+			<div ng-show="dataid ">
+					<textarea ng-change="parseCSV()" ng-model="$parent.csvData" id="{{dataid}}" rows="5" cols="50">
 					</textarea>
 			</div>
 
 			<div ng-show="mailMerge.doc.outputpdf">
 				<div>
-					<input bs-switch ng-model="attachpdf" type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">  Attach below document to the message?
+					<input bs-switch ng-model="$parent.attachpdf" type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">  Attach below document to the message?
 				</div>
 
 			
@@ -37,7 +37,7 @@
 				<div id="doc-temp" ng-hide="true"></div>
 			</div>
 
-			<div ng-if="tableid ">
+			<div ng-show="tableid ">
 				<table id="{{tableid}}">
 				    <thead>
 				        <tr>
@@ -87,13 +87,253 @@
 				            <td>tommy</td>
 				            <td>2016-07-16</td>
 				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>jack@gmail.com</td>
+				            <td>ivy</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus2</td>
+				            <td>jack</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>ivy@gmail.com</td>
+				            <td>cc</td>
+				            <td></td>
+				            <td>subject1</td>
+				            <td>cus3</td>
+				            <td>ivy</td>
+				            <td>2016-07-15</td>
+				        </tr>
+				        <tr>
+				            <td>tommy@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+				        <tr>
+				            <td>test@gmail.com</td>
+				            <td>dd</td>
+				            <td>ivy</td>
+				            <td>subject1</td>
+				            <td>cus4</td>
+				            <td>tommy</td>
+				            <td>2016-07-16</td>
+				        </tr>
+
+
 				        
 				    </tbody>
-</table>
+		</table>
 
 			</div>
 
 			<button ng-click="sendMessage()">{{labelButtonPopup}}</button>
+			<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
+			<span class ="success" ng-show="sending==false"> Great! Messages Sent</span>
+			<span class= "error" ng-show="invalidTo">Please enter recipient email address</span>
 
 		</div>
 
@@ -133,7 +373,17 @@
 				<div id="text_preview"></div>
 			 </div>
 		</div>
-
+		<div class="clear"></div>
+		<div ng-show="dataid || tableid">
+			<div >History of communications</div>
+			<table>
+				<tr ng-repeat="history in mergeHistory | orderBy:'-email_date'">
+					<td><button>{{history.email_date | date:'d MMMM yyyy' }}</button></td>
+					<td>{{history.template}}</td>
+					<td>{{history.email_text}}</td>
+				</tr>
+			</table>
+		</div>
 		 
 	</div>
 </div>

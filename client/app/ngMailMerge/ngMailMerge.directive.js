@@ -8,7 +8,7 @@ angular.module('mailMergeApp')
       scope:{template:'=',labelButton:'=',labelButtonPopup:'=',dataid:'=?',tableid:'=?'},
       link: function (scope, element, attrs) {
       },
-      controller:['$scope','$compile','$interpolate',function($scope,$compile,$interpolate){
+      controller:['$scope','$compile','$interpolate','MergeService',function($scope,$compile,$interpolate,MergeService){
       	 $scope.popup = {
 		    opened: false
 		 };
@@ -23,20 +23,58 @@ angular.module('mailMergeApp')
 			name:null,
 			date:null
 		};
+		$scope.$watch('showPopup',function(newVal,oldVal){
+			if(newVal){
+				if($scope.template == 'invoice'){
+		      		$scope.mailMerge = invoice;
+		      	}else if($scope.template == 'reminder'){
+		      		$scope.mailMerge = reminder;
+		      	}else if($scope.template == "license"){
+		      		$scope.mailMerge = license;
+		      	}
+		 		$scope.attachpdf = $scope.mailMerge.doc.attachpdf;
+		      	$scope.result = null;
+		      	$scope.invalidTo = false;
+				$scope.currentIndex = 0;
+				$scope.dataLength = 0;
+				$scope.message_interpolate = [];
+				$scope.sendEmail = $scope.mailMerge.email.sendEmail;
+		      	$scope.sendhtml = $scope.mailMerge.email.sendhtml;
 
-      	if($scope.template == 'invoice'){
-      		$scope.mailMerge = invoice;
-      	}else if($scope.template == 'reminder'){
-      		$scope.mailMerge = reminder;
-      	}else if($scope.template == "license"){
-      		$scope.mailMerge = license;
-      	}
+				setTimeout(function(){
+						$('#form').html($compile($scope.mailMerge.frm.markup)($scope));
+						if($scope.sendEmail){
+				      		if($scope.sendhtml){
+					      		$('#html_preview').html($compile($scope.mailMerge.email.html)($scope));
+					      		$scope.previewText = "HTML Email Preview";
+					      	}
+					      	else{
+					      		$('#text_preview').text($interpolate($scope.mailMerge.email.text)($scope));
+					      		$scope.previewText = "Email Preview";
+					      	}
+			      		}
+				},10)
 
-      	$scope.attachpdf = $scope.mailMerge.doc.attachpdf;
-      	$scope.result = null;
-		$scope.currentIndex = 0;
-		$scope.dataLength = 0;
-		$scope.message_interpolate = [];
+				if($scope.mailMerge.doc.outputpdf){
+					setTimeout(function(){
+			      		$('#doc_preview').html($compile($scope.mailMerge.doc.markup)($scope));
+			      	},10)
+				}
+
+				if($scope.tableid){
+		      		setTimeout(function(){
+		      			var table = $('#'+$scope.tableid).DataTable();
+		      			var el = $('.input-sm')[1];
+		      			prepareTableData(table)
+		      			$(el).bind('input', function(){
+							prepareTableData(table)
+						});
+		      		},10)     		
+		      	}
+				
+		   }
+		});
+  
 
 		var prepareTableData = function(table){
 			var transform_data = [];
@@ -64,16 +102,6 @@ angular.module('mailMergeApp')
 			$scope.$apply();
 		};
 
-      	if($scope.tableid){
-      		setTimeout(function(){
-      			var table = $('#'+$scope.tableid).DataTable();
-      			var el = $('.input-sm')[1];
-      			prepareTableData(table)
-      			$(el).bind('input', function(){
-					prepareTableData(table)
-				});
-      		},200)     		
-      	}
 		
       	$scope.parseCSV = function(){
       		$scope.result = Papa.parse($scope.csvData);
@@ -89,6 +117,23 @@ angular.module('mailMergeApp')
 				
 			}
       	};
+
+      	$scope.fetchHistory = function(){
+  			MergeService.getHistory({code:$scope.merge.code}).then(function(result){
+  				$scope.mergeHistory = result.data;
+  				for(var i in $scope.mergeHistory){
+  					$scope.mergeHistory[i].email_date = new Date($scope.mergeHistory[i].email_date);
+  				}
+  			});
+      	}
+
+      	$scope.$watch('current',function(newVal,oldVal){
+      		if(newVal){
+      		    $scope.fetchHistory();
+      		}
+      	})
+
+      
 
       	$scope.next = function(){
       		$scope.currentIndex++;
@@ -169,36 +214,16 @@ angular.module('mailMergeApp')
       		}else{
       			singleMsg();
       		}
-	      		
-      		console.log($scope.message_interpolate);
 
       	};
 
-      	$('#form').html($compile($scope.mailMerge.frm.markup)($scope));
-      	// $scope.mailMerge.email.html.replace('{{user.firstName}}','asdfasdfasf')
-      	$scope.sendEmail = $scope.mailMerge.email.sendEmail;
-      	$scope.sendhtml = $scope.mailMerge.email.sendhtml;
-
-      	if($scope.sendEmail){
-      		if($scope.sendhtml){
-	      		$('#html_preview').html($compile($scope.mailMerge.email.html)($scope));
-	      		$scope.previewText = "HTML Email Preview";
-	      	}
-	      	else{
-	      		$('#text_preview').text($interpolate($scope.mailMerge.email.text)($scope));
-	      		$scope.previewText = "Email Preview";
-	      	}
-      	}
 
       	$scope.update = function(){
       		$('#text_preview').text($interpolate($scope.mailMerge.email.text)($scope));
       	};
       	
 
-      	if($scope.mailMerge.doc.outputpdf){
-      		$('#doc_preview').html($compile($scope.mailMerge.doc.markup)($scope));
-      	}
-
+      
       	$scope.open = function(){
       		  $scope.popup.opened = true;
       	};
@@ -211,6 +236,13 @@ angular.module('mailMergeApp')
 
       	$scope.sendMessage = function(){
       		$scope.messages = [];
+      		$scope.invalidTo = false;
+      		if($scope.sendEmail && !$scope.merge.email.to){
+      			$scope.invalidTo = true;
+      			return;
+      		}
+
+      		$scope.sending = true;
       		if(!$scope.dataid && !$scope.tableid || !$scope.result || $scope.result.data.length == 0 ){
       			transform();
       		}
@@ -218,11 +250,12 @@ angular.module('mailMergeApp')
       		if(!$scope.sendEmail){
       			return;
       		}
-
+      		var template = angular.copy($scope.mailMerge);
   			for(var i=0;i<$scope.message_interpolate.length;i++){
   				
 	  			(function(i){
-	  			 	$scope.messages.push($scope.mailMerge);
+	  				delete template.frm;
+	  			 	$scope.messages.push(template);
 	  				var scope = $scope.$new();
 	  			 	scope.merge = $scope.message_interpolate[i];
 	  			 	
@@ -234,11 +267,12 @@ angular.module('mailMergeApp')
 	  			 		  var preview_email= $('#email-temp').html(email_el);		  
 	  			 		  var preview_doc= $('#doc-temp').html(doc_el);		  
 	  			 		  $scope.message_interpolate[i].html = preview_email.html();
-	  			 		  $scope.message_interpolate[i].doc = preview_doc.html();
-	  			 		  // $scope.message_interpolate[i].doc = preview_doc.html();
+	  			 		  $scope.message_interpolate[i].doc = preview_doc.html();  			 		 
 
 	  			 		  var message = angular.copy($scope.messages[i]);
 			  			  delete message.frm;
+			  			  message.recipientcode = $scope.message_interpolate[i].code;
+			  			  message.status = 'kue';
 			  			  message.email.to = $scope.message_interpolate[i].email.to;
 			  			  message.email.cc = $scope.message_interpolate[i].email.cc;
 			  			  message.email.bcc = $scope.message_interpolate[i].email.bcc;
@@ -248,12 +282,22 @@ angular.module('mailMergeApp')
 			  			  message.doc.markup = $scope.message_interpolate[i].doc;
 			  			  message.doc.attachpdf = $scope.attachpdf;
 			  			  $scope.messages[i] = message;
-	  			 	 },300)
+	  			 	 },200)
 				})(i)
   			}
 	
-      		console.log($scope.message_interpolate);
-      		console.log($scope.messages);
+      		// console.log($scope.message_interpolate);
+      		// console.log($scope.messages);
+
+      		setTimeout(function(){
+      			MergeService.create({merges:$scope.messages}).then(function(result){
+      				$scope.sending = false;
+      				if($scope.dataid || $scope.tableid){
+      					$scope.fetchHistory();
+      				}
+      		});
+      		},500)
+      		
       	};
 
 
