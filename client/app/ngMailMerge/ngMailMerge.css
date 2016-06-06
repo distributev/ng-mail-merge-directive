@@ -45,7 +45,41 @@
 .float{
   float:left;
   width:50%;
+  margin-right:20px;
 }
 .clear{
   clear:both;
+}
+.width-8{
+  width:8%;
+}
+.width-40{
+  width:40%;
+}
+.width-45{
+  width:45%;
+}
+.col-sm-2{
+  width:18%;
+}
+.margin-15{
+  margin:10px 0 15px 15px;
+}
+.table > tbody > tr > td{
+  border-top:none;
+}
+.scroll-y{
+  max-height: 400px;
+  overflow-y:scroll;
+}
+.image-scroll{
+  max-height:411px;
+  overflow-y:auto;
+}
+.entity-name{
+  font-size:25px;
+  line-height: 0.8;
+}
+h4{
+  font-weight: bold;
 }
