@@ -1,10 +1,178 @@
 
-<!-- <button ng-click="showPopup = true">{{labelButton}}</button> -->
-<!-- <div ng-if="showPopup"> -->
 <button type="button" ng-click="showModal(modalId)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{modalId}}">{{labelButton}}</button>
+
+<div ng-show="dataid ">
+		<label class="col-sm-2 control-label">Paste CSV/TSV value here:</label>
+		<textarea ng-change="parseCSV()" ng-model="csvData" id="{{dataid}}" rows="5" cols="50">
+		</textarea>
+</div>
+
+<div class="table-responsive margin-15" ng-show="tableid ">
+		<table class="table" id="{{tableId}}">
+			    <thead>
+			        <tr>
+			            <th>To</th>
+			            <th>CC</th>
+			            <th>BCC</th>
+			            <th>Subject</th>
+			            <th>Code</th>
+			            <th>Name</th>
+			            <th>Number</th>
+			            <th>Product</th>
+			            <th>Fees</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr>
+			            <td>wengjiahong@gmail.com</td>
+			            <td>aa</td>
+			            <td>pineapple</td>
+			            <td>subject1</td>
+			            <td>cus1</td>
+			            <td>Mike</td>
+			            <td>3</td>
+			            <td>durian</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>jack@gmail.com</td>
+			            <td>banana</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus2</td>
+			             <td>Jack</td>
+			            <td>3</td>
+			            <td>apple</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>ivy@gmail.com</td>
+			            <td>cc</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus3</td>
+			             <td>Ivy</td>
+			            <td>5</td>
+			            <td>banana</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>tommy@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>tommy</td>
+			            <td>5</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>
+			        <tr>
+			            <td>jack@gmail.com</td>
+			            <td>banana</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus2</td>
+			             <td>jack</td>
+			            <td>2</td>
+			            <td>apple</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>tommy@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>tommy</td>
+			            <td>3</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>
+
+			      
+			        <tr>
+			            <td>ivy@gmail.com</td>
+			            <td>cc</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus3</td>
+			            <td>test</td>
+			            <td>3</td>
+			            <td>banana</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>tommy@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>test2</td>
+			            <td>3</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>
+			        <tr>
+			            <td>tommy@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>tommy</td>
+			            <td>3</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>
+			        <tr>
+			            <td>jack@gmail.com</td>
+			            <td>banana</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus2</td>
+			            <td>jack</td>
+			            <td>3</td>
+			            <td>apple</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>ivy@gmail.com</td>
+			            <td>cc</td>
+			            <td></td>
+			            <td>subject1</td>
+			            <td>cus3</td>
+			            <td>ivy</td>
+			            <td>3</td>
+			            <td>banana</td>
+			            <td>100</td>
+			        </tr>
+			        <tr>
+			            <td>tommy@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>tommy</td>
+			            <td>5</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>
+			        <tr>
+			            <td>test@gmail.com</td>
+			            <td>dd</td>
+			            <td>banana</td>
+			            <td>subject1</td>
+			            <td>cus4</td>
+			            <td>weng</td>
+			            <td>5</td>
+			            <td>pineapple</td>
+			            <td>200</td>
+			        </tr>        
+			    </tbody>
+		</table>
+</div>
+
 <div ng-if="myId == modalId">
-	<!-- <div class="popup-overlay" ng-click="$parent.showPopup = false" role="button" tabindex="0"></div> -->
-	<!-- <div  class="merge-popup" > -->
 	 <div class="modal fade" id="{{modalId}}" role="dialog">
 	  	<div class="modal-dialog">
 	  	 <div class="modal-content">
@@ -12,7 +180,7 @@
 	  	 	     <button type="button" class="close" data-dismiss="modal">&times;</button>
 					<div class="float">
 						<div class="margin-15" ng-show="dataid || tableid ">
-							<div><a ng-show="dataLength>0 && currentIndex>0" ng-click="previous()"> < </a><span class="entity-name"> {{current[5]}} </span><a ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()"> > </a></div>
+							<div><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button><span class="entity-name"> -{{current[5]}}- </span><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
 							<div ng-show="dataLength>0">{{currentIndex+1}} of {{dataLength}}</div>
 						</div>
 						<div >
@@ -20,7 +188,7 @@
 
 								<div>
 								<h4 class="margin-15">Email information:</h4>
-									<div id="{{formId}}"></div>
+									<div class="margin-15" id="{{formId}}"></div>
 								</div>
 
 								<div ng-show="!sendhtml">
@@ -30,12 +198,7 @@
 								</div>
 							</div>
 
-							<div ng-show="dataid ">
-									<label class="col-sm-2 control-label">Paste CSV/TSV value here:</label>
-									<textarea ng-change="parseCSV()" ng-model="$parent.csvData" id="{{dataid}}" rows="5" cols="50">
-									</textarea>
-							</div>
-
+							
 							<div class="margin-15" ng-show="mailMerge.doc.outputpdf">
 								<div>
 									<input bs-switch ng-model="$parent.attachpdf" type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">&nbsp&nbsp<span>
@@ -47,298 +210,6 @@
 								<div id="doc-temp" ng-hide="true"></div>
 							</div>
 
-							<div class="table-responsive margin-15" ng-show="tableid ">
-								<table class="table" id="{{tableId}}">
-								    <thead>
-								        <tr>
-								            <th>To</th>
-								            <th>CC</th>
-								            <th>BCC</th>
-								            <th>Subject</th>
-								            <th>code</th>
-								            <th>name</th>
-								            <th>date</th>
-								        </tr>
-								    </thead>
-								    <tbody>
-								        <tr>
-								            <td>wengjiahong@gmail.com</td>
-								            <td>aa</td>
-								            <td>tommy</td>
-								            <td>subject1</td>
-								            <td>cus1</td>
-								            <td>mike</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>jack@gmail.com</td>
-								            <td>ivy</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus2</td>
-								            <td>jack</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>ivy@gmail.com</td>
-								            <td>cc</td>
-								            <td></td>
-								            <td>subject1</td>
-								            <td>cus3</td>
-								            <td>ivy</td>
-								            <td>2016-07-15</td>
-								        </tr>
-								        <tr>
-								            <td>tommy@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-								        <tr>
-								            <td>test@gmail.com</td>
-								            <td>dd</td>
-								            <td>ivy</td>
-								            <td>subject1</td>
-								            <td>cus4</td>
-								            <td>tommy</td>
-								            <td>2016-07-16</td>
-								        </tr>
-
-
-								        
-								    </tbody>
-						</table>
-
-							</div>
 
 							<button type="button" class="btn btn-primary btn-lg margin-15" ng-click="sendMessage()">{{labelButtonPopup}}</button>
 							<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
@@ -389,9 +260,14 @@
 						<label lass="table-responsive">History of communications</label>
 						<table class="table">
 							<tr ng-repeat="history in mergeHistory | orderBy:'-email_date'">
-								<td><button>{{history.email_date | date:'d MMMM yyyy' }}</button></td>
+								<td ng-hide="history.sending"><button>{{history.email_date | date:'d MMMM yyyy' }}</button></td>
+								<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{history.email_date}}</td>
 								<td>{{history.template}}</td>
-								<td>{{history.email_text}}</td>
+								<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
+								<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
+								<td><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">{{history.email_text}}</span></td>
+								<td><a ng-show="history.doc_outputpdf == 1"href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">Click to View PDF</span></td>
+								<td><a ng-show="history.status == 'fail'"href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-danger">Error</span></td>
 							</tr>
 						</table>
 					</div>

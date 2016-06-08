@@ -1,9 +1,11 @@
+'use strict';
+
 angular.module('mailMergeApp').factory('MergeService',['$http',
         function($http){
-          var base_url='/api/merges/';
+          var baseUrl='/api/merges/';
           var mergeService = {
             create:function(data){
-              var url = base_url;
+              var url = baseUrl;
               return $http({
                     method:'POST',
                     url:url,
@@ -14,7 +16,7 @@ angular.module('mailMergeApp').factory('MergeService',['$http',
                 });
             },
             getHistory:function(data){
-              var url = base_url+data.code+'/history';
+              var url = baseUrl+data.code+'/history';
               return $http({
                     method:'get',
                     url:url,

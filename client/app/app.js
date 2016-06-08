@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mailMergeApp', ['mailMergeApp.auth', 'mailMergeApp.admin', 'mailMergeApp.constants',
-    'ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'validation.match','ngAnimate','ui.bootstrap','Menus','frapontillo.bootstrap-switch'
+    'ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'validation.match','ngAnimate','ui.bootstrap','Menus','frapontillo.bootstrap-switch','formly', 'formlyBootstrap'
   ])
   .config(function($routeProvider, $locationProvider) {
     $routeProvider.otherwise({
@@ -38,4 +38,5 @@ angular.module('mailMergeApp', ['mailMergeApp.auth', 'mailMergeApp.admin', 'mail
 	    	state: 'license'
 	    });
   
-  }]);
+  }])
+  

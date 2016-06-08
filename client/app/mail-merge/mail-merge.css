@@ -42,7 +42,7 @@
   margin:10px 0 15px 15px;
 }
 .table > tbody > tr > td{
-  border-top:none;
+  border-top:none !important;
 }
 .scroll-y{
   max-height: 400px;
@@ -61,6 +61,6 @@ h4{
 }
 
 @media screen and (min-width: 768px) {
-   .modal-dialog  {width:1300px;}
+   .modal-dialog  {width:1200px !important;}
 
 }
