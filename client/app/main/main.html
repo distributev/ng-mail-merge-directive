@@ -1,9 +1,14 @@
 <header class="hero-unit" id="banner">
+  
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  <mail-merge template="'invoice'" label-button="'Send Invoice(DataTable)'" label-button-popup="'Send Invoice'"  tableid="'myTable'"></mail-merge>
+
+  <mail-merge template="'reminder'" label-button="'Send reminder(Adhoc)'" label-button-popup="'Send Reminder'" ></mail-merge>
+
+  <mail-merge template="'license'" label-button="'Send License(Data)'" label-button-popup="'Send License'" dataid="'myData'" ></mail-merge>
   </div>
+         
+
 </header>
 
 <div class="container">

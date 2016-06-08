@@ -1,27 +1,3 @@
-.merge-popup {
-  top: 10%;
-  left: 5%;
-  right: 5%;
-  bottom: 5%;
-  position: fixed;
-  border-radius: 5px;
-  z-index: 40;
-  background-color: white;
-  overflow: auto;
-}
-
-.popup-overlay {
-    position: fixed;
-    top: 0px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-    z-index: 30;
-    float: left;
-    background-color: black;
-}
-
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
@@ -70,7 +46,7 @@
 }
 .scroll-y{
   max-height: 400px;
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 .image-scroll{
   max-height:411px;
@@ -82,4 +58,9 @@
 }
 h4{
   font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+   .modal-dialog  {width:1300px;}
+
 }
