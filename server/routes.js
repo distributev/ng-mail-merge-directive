@@ -17,10 +17,10 @@ export default function(app) {
   app.use('/auth', require('./auth').default);
 
   var env = app.get('env');
-  if(env == 'production')
-     app.use('/',express.static(__dirname+'/../../config'));
+  if(env === 'production')
+     app.use('/',express.static(__dirname+'/../../config/mail-merge'));
   else
-     app.use('/',express.static(__dirname+'/../config'));
+     app.use('/',express.static(__dirname+'/../config/mail-merge'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

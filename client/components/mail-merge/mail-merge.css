@@ -1,0 +1,50 @@
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+.width-8{
+  width:8%;
+}
+.margin-15{
+  margin:10px 0 15px 15px;
+}
+.table > tbody > tr > td{
+  border-top:none !important;
+}
+.scroll-y{
+  max-height: 680px;
+  overflow-y:auto;
+}
+.doc-scroll{
+  max-height:325px;
+  overflow:auto;
+}
+.email-scroll{
+  max-height:200px;
+  overflow:auto;
+}
+.email-edit{
+  height:200px;
+}
+.fill{
+  height: 100%
+}
+
+@media screen and (min-width: 768px) {
+  .modal-dialog  {width:1200px !important;}
+
+}
+
+.modal-body {
+    height:750px;
+}

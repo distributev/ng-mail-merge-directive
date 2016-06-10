@@ -1,0 +1,166 @@
+
+<button type="button" ng-click="showModal(modalId)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{modalId}}">{{labelButton}}</button>
+
+<div ng-if="myId == modalId">
+	 <div class="modal fade" id="{{modalId}}" role="dialog">
+	  	<div class="modal-dialog">
+	  	 	<div class="modal-content">
+	  	 	    <div class="modal-body">
+	  	 	     	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		  	 	    <tabset	>
+		  	 	     	<tab active="tab.isActive" index="0" heading="Message">
+			  	 	     	<div class="pull-left col-xs-4 scroll-y">
+								<div class="margin-15" ng-show="dataid || tableid ">
+									<div>
+										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
+										 <h2 class="pull-left"> -{{merge.name}}- </h2>
+
+										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								
+								<div>
+									<div class="email" ng-show="sendEmail">
+											<div>
+												<div class="margin-15" id="{{formId}}"></div>
+											</div>
+											<div ng-show="!sendhtml">
+											<span>Email Body</span>
+												<textarea ng-change="update()" ng-model="mailMerge.email.text"  rows="5" cols="50">						
+												</textarea>
+											</div>
+									</div>
+									<button type="button" class="btn btn-primary btn-lg margin-15" ng-click="sendMessage()">{{labelButtonPopup}}</button>
+									<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
+									<span class ="text-success" ng-show="sending==false"> Great! Messages Sent</span>
+									<span class="text-danger" ng-show="invalidTo">Please enter recipient email address</span>
+								</div>
+							</div>
+
+							<div  class="col-xs-8"  ng-show="sendEmail">
+								<div  class="" style="height: 325px">
+										<div class="form-group margin-15">
+												<label class="control-label width-8">To</label> 
+												<span>{{merge.email.to}}</span>
+										 </div>
+										 <div class="form-group margin-15">
+										 	    <label class="control-label width-8">CC</label>
+										 	    <span>{{merge.email.cc}}</span>
+										 </div>
+										 <div class="form-group margin-15"> 
+										 		<label class="control-label width-8">BCC</label>
+										 		<span>{{merge.email.bcc}}</span>
+										 </div>
+										 <div class="form-group margin-15">
+										 		<label class="control-label width-8">Subject</label> 
+										 		<span>{{merge.email.subject}}</span>
+										 </div>
+										 <div ng-show="sendhtml">
+										 
+										 	<textarea ng-change="refresh()" class="email-scroll pull-left col-xs-10 email-edit" ng-model="mailMerge.email.html" ng-show="edit" id="data_row" rows="5" cols="50">						
+											</textarea>
+
+											<div ng-show="!edit" id="{{htmlPreviewId}}" class="email-scroll pull-left col-xs-10"></div>
+											<div class="col-xs-2 email-edit">
+												<button ng-hide="edit" ng-click="edit = true" class="fill" style="
+											 	color:rgb(66,133,244);">
+													View Email source
+											 	</button>
+
+											 	<button ng-show="edit" ng-click="edit = false;refresh()" class="fill" style="
+											 	color:rgb(66,133,244)">
+											 		 View Email
+											 	</button>
+										 	</div>
+
+										 	<div id="email-temp" ng-hide="true"></div>
+										 </div>
+										 
+										 <div ng-show="!sendhtml">
+											<div id="{{textPreviewId}}"></div>
+										 </div>
+									</div>
+
+
+									
+									<div class=" col-md-12" ng-show="mailMerge.document.generatepdf">
+										<div>
+											<input bs-switch ng-model="mailMerge.attachpdf"  type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">&nbsp&nbsp<span>Attach below document to the message?</span>
+										</div>
+
+										<div class=" doc-scroll" id="{{docPreviewId}}"></div>
+										<div id="doc-temp" ng-hide="true"></div>
+									</div>
+							</div>
+
+		  	 	     	</tab>
+		  	 	     	<tab index="1" ng-show="dataid || tableid" heading="Message History">
+			  	 	     	<div class="margin-15 scroll-y">
+								<label lass="table-responsive">History of communications</label>
+								<table class="table" >
+
+									<tr dir-paginate="history in history.mergeHistory| orderBy:'-email_date'| itemsPerPage:page.itemPerPage" pagination-id="page.pageId" current-page="page.currentPageNumber">
+										<td ng-hide="history.sending"><button>{{history.email_date | time }}</button></td>
+										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{history.email_date}}</td>
+										<td>{{history.template}}</td>
+										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
+										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
+										<td  ng-hide="history.sending"><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">{{history.email_text | stringCut}}</span></a></td>
+										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">Click to View PDF</span></a></td>
+										<td  ng-show="!history.sending && history.status == 'fail' "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-danger">Error</span></a></td>
+									</tr>
+								</table>
+
+								<div class="pull-right">        
+						              <dir-pagination-controls pagination-id="page.pageId" boundary-links="true"   auto-hide="false" template-url="dirPagination.html"></dir-pagination-controls>
+						        </div>
+							</div>
+		  	 	     	</tab>
+		  	 	    </tabset>
+
+				</div>
+			</div>
+		 </div>
+	</div>
+</div>
+<div style="clear:both"></div>
+
+<script type="text/ng-template" id="datepicker.html">
+      <p class="input-group">
+        <input  type="text"
+                id="{{::id}}"
+                name="{{::id}}"
+                ng-model="model[options.key]"
+                class="form-control"
+                ng-click="datepicker.open($event)"
+                datepicker-popup="{{to.datepickerOptions.format}}"
+                is-open="datepicker.opened"
+                datepicker-options="to.datepickerOptions" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </script>
+
+
+<script type="text/ng-template" id="dirPagination.html">
+    <ul class="pagination" ng-if="1 < pages.length || !autoHide">
+	    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+	        <a href="" ng-click="setCurrent(1)">&laquo;</a>
+	    </li>
+	    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+	        <a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+	    </li>
+	    <li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+	        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+	    </li>
+
+	    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+	        <a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+	    </li>
+	    <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+	        <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+	    </li>
+	</ul>
+    </script>

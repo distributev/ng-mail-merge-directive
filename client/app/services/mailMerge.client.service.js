@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mailMergeApp').factory('MergeService',['$http',
+angular.module('mailMergeApp').factory('mergeService',['$http',
         function($http){
           var baseUrl='/api/merges/';
           var mergeService = {

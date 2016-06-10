@@ -1,0 +1,32 @@
+{
+	"template": "Invoice",
+	"email": {
+		"to": "valid{{ng}template",
+		"cc": "",
+		"bcc": "",
+		"subject": "test",
+		"text": "Hello,how are you {{merge.name}}, did you receive my invoice on {{merge.date| date:'yyyy-MM-dd' }}",
+		"sendhtml": true,
+		"sendEmail":true,
+		"html": "/invoices/templates/email.html"
+	},
+	"document": {
+		"generatepdf": true,
+		"attachpdf": true,
+		"filename": "valid{{ng}file-name-template.pdf",
+		"outputfolder": "output/valid{{ng}}folder-name-template",
+        "html": "/invoices/templates/document.html"
+	},
+	"smtp": {
+		"host": "Email Server Host",
+		"port": "25",
+		"userid": "From Email User ID",
+		"userpassword": "From Email Password",
+		"usessl": false,
+		"usetls": false,
+		"debug": false,
+		"fromaddress": "from@emailaddress.com",
+		"name": "From Name"
+	},
+	"form": "/invoices/templates/form.json"
+}
