@@ -106,7 +106,7 @@
 										<td>{{history.template}}</td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
-										<td  ng-hide="history.sending"><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">{{history.email_text | stringCut}}</span></a></td>
+										<td  ng-hide="history.sending"><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_html}}><span class="label label-success">{{history.email_text | stringCut}}</span></a></td>
 										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">Click to View PDF</span></a></td>
 										<td  ng-show="!history.sending && history.status == 'fail' "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-danger">Error</span></a></td>
 									</tr>
