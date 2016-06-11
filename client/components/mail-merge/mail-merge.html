@@ -13,7 +13,8 @@
 								<div class="margin-15" ng-show="dataid || tableid ">
 									<div>
 										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
-										 <h2 class="pull-left"> -{{merge.name}}- </h2>
+										 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
+										 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
 
 										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
 										<div class="clearfix"></div>
@@ -38,7 +39,7 @@
 								</div>
 							</div>
 
-							<div  class="col-xs-8"  ng-show="sendEmail">
+							<div  class="col-xs-8"  >
 								<div  class="" style="height: 325px">
 										<div class="form-group margin-15">
 												<label class="control-label width-8">To</label> 
@@ -105,7 +106,7 @@
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{history.email_date}}</td>
 										<td>{{history.template}}</td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
-										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
+										<td ng-show="history.sending && mailMerge.document.generatepdf"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
 										<td  ng-hide="history.sending"><a href="#"  tooltip-html-unsafe="{{history.email_html}}" tooltip-class="email" data-toggle="tooltip" tooltip-placement="right" ><span class="label label-success">{{history.email_text | stringCut}}</span></a>
 										</td>
 

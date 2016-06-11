@@ -201,7 +201,7 @@ angular.module('mailMergeApp')
 			 			}
 			 			
 					 	
-			 			if($scope.sendEmail){
+			 			
 			 				$http.get('/'+$scope.template+'/templates/form.json').then(function(template){
 			 						var doc = template.data;
 			 						$scope.mergeFields = doc;
@@ -230,16 +230,17 @@ angular.module('mailMergeApp')
 			 							$scope.fetchHistory();
 			 						}
 			 						
-						 			$http.get($scope.mailMerge.email.html).then(function(template){
-						 						var html = template.data;
-						 						$scope.mailMerge.email.html = html;
-						 						renderEmail();
-						 						
-						 			});
+			 						if($scope.sendEmail)
+							 			$http.get($scope.mailMerge.email.html).then(function(template){
+							 						var html = template.data;
+							 						$scope.mailMerge.email.html = html;
+							 						renderEmail();
+							 						
+							 			});
 						 			
 	
 			 				});
-			 			}
+			 			
 			        });
 		};
 
@@ -336,14 +337,19 @@ angular.module('mailMergeApp')
 	  			 	scope.merge = $scope.messageInterpolate[i];
 	  			 	
 	  			 	var emailEl = $compile($scope.mailMerge.email.html)(scope);
-	  			 	var docEl = $compile($scope.mailMerge.document.html)(scope);
+	  			 	if($scope.mailMerge.document.generatepdf){
+		  			 	var docEl = $compile($scope.mailMerge.document.html)(scope);
+		  			}
 	  			 	var text = $interpolate($scope.mailMerge.email.text)(scope);
 	  			 	
 	  			 	setTimeout(function(){	 
-	  			 		  var previewEmail= $('#email-temp').html(emailEl);		  
-	  			 		  var previewDoc= $('#doc-temp').html(docEl);		  
+	  			 		  var previewEmail= $('#email-temp').html(emailEl);	
+	  			 		  if($scope.mailMerge.document.generatepdf){	  
+	  			 		  	var previewDoc= $('#doc-temp').html(docEl);
+	  			 		  	$scope.messageInterpolate[i].doc = previewDoc.html();  
+	  			 		  }		  
 	  			 		  $scope.messageInterpolate[i].html = previewEmail.html();
-	  			 		  $scope.messageInterpolate[i].doc = previewDoc.html();  			 		 
+	  			 		 			 		 
 
 	  			 		  var message = angular.copy($scope.messages[i]);
 			  			  
@@ -355,7 +361,9 @@ angular.module('mailMergeApp')
 			  			  message.email.subject = $scope.messageInterpolate[i].email.subject;
 			  			  message.email.html = $scope.messageInterpolate[i].html;
 			  			  message.email.text = text;
-			  			  message.document.html = $scope.messageInterpolate[i].doc;
+			  			  if($scope.mailMerge.document.generatepdf){	 
+				  			  message.document.html = $scope.messageInterpolate[i].doc;
+				  		  }
 			  			  message.document.attachpdf = $scope.mailMerge.attachpdf;
 			  			  $scope.messages[i] = message;
 	  			 	 },200);
