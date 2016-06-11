@@ -55,7 +55,6 @@ angular.module('mailMergeApp')
 		      	    				
 		    }
 	      	$scope.messageInterpolate.push(email);
-	      	console.log($scope.messageInterpolate)
       	};
 
 		var transform = function(){

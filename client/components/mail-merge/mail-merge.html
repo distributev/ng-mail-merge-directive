@@ -106,8 +106,13 @@
 										<td>{{history.template}}</td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
-										<td  ng-hide="history.sending"><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_html}}><span class="label label-success">{{history.email_text | stringCut}}</span></a></td>
-										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-success">Click to View PDF</span></a></td>
+										<td  ng-hide="history.sending"><a href="#"  tooltip-html-unsafe="{{history.email_html}}" tooltip-class="email" data-toggle="tooltip" tooltip-placement="right" ><span class="label label-success">{{history.email_text | stringCut}}</span></a>
+										</td>
+
+										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#"  tooltip-html-unsafe="{{history.document_html}}"  tooltip-trigger="click" tooltip-class="document" data-toggle="tooltip" tooltip-placement="bottom" ><span class="label label-success">Click to View PDF</span></a>
+										<p  ng-show="history.pdf == true" ng-bind-html="history.document_html" compile-template></p>	
+
+										</td>
 										<td  ng-show="!history.sending && history.status == 'fail' "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-danger">Error</span></a></td>
 									</tr>
 								</table>
@@ -125,6 +130,10 @@
 	</div>
 </div>
 <div style="clear:both"></div>
+
+<script type="text/ng-template" id="myTooltipTemplate.html">
+  <div></div>
+</script>
 
 <script type="text/ng-template" id="datepicker.html">
       <p class="input-group">

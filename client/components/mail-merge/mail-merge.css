@@ -48,3 +48,20 @@
 .modal-body {
     height:750px;
 }
+
+.tooltip.document .tooltip-inner {
+    color: #880000;
+    background-color: #fff;
+    max-width: 552px;
+    max-height: 500px;
+    overflow: scroll;
+    border: 1px solid black;
+}
+
+.tooltip.email .tooltip-inner {
+    color: #880000;
+    background-color: #fff;
+    max-width: 350px;
+    max-height: 350px;
+    overflow: auto;
+}
