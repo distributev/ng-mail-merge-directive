@@ -46,3 +46,4 @@
     height:750px;
 }
 
+body.modal-open { overflow:inherit; padding-right:inherit !important; }
