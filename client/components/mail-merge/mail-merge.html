@@ -10,14 +10,16 @@
 		  	 	    <tabset	>
 		  	 	     	<tab active="tab.isActive" index="0" heading="Message">
 			  	 	     	<div class="pull-left col-xs-4 ">
-								<div class="margin-15" ng-show="dataid || tableid ">
+								<div class="margin-15" >
 									<div>
-										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
-										 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
-										 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
+										<div ng-show="dataid || tableid ">
+											<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
+											 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
+											 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
 
-										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
-										<div class="clearfix"></div>
+											<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
+											<div class="clearfix"></div>
+										</div>
 										<div>
 											<button type="button" class="btn btn-primary btn-lg " ng-click="sendMessage()">{{labelButtonPopup}}</button>
 											<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
@@ -25,7 +27,7 @@
 											<span class="text-danger" ng-show="invalidTo">Please enter recipient email address</span>
 
 										</div>
-										<div>
+										<div ng-show="current && (dataid || tableid) ">
 												<div ng-show="!sending">
 													<button ng-show="!sending" class="label-success" ng-class="{'label-danger':history.mergeHistory[history.mergeHistory.length-1].status == 'fail'}">{{history.mergeHistory[history.mergeHistory.length-1].email_date | time }}</button>
 													<span ng-show="!sending">{{history.mergeHistory[history.mergeHistory.length-1].template}}</span>
