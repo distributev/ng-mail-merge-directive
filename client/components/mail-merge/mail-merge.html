@@ -13,8 +13,8 @@
 								<div class="margin-15" ng-show="dataid || tableid ">
 									<div>
 										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
-										 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
-										 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
+										 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
+										 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> {{merge.name}} </span>
 
 										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
 										<div class="clearfix"></div>
