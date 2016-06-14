@@ -64,10 +64,30 @@ angular.module('mailMergeApp', ['mailMergeApp.auth', 'mailMergeApp.admin', 'mail
     ngModelAttrs[camelize(binding)] = {bound: binding};
   });
 
+
+  formlyConfig.setWrapper({
+      name: 'horizontalBootstrapLabel',
+      template: [
+        '<label for="{{::id}}" class="col-sm-4 control-label">',
+          '{{to.label}} {{to.required ? "*" : ""}}',
+        '</label>',
+        '<div class="col-sm-8">',
+          '<formly-transclude></formly-transclude>',
+        '</div>',
+        '<div class="clearfix"></div>'
+      ].join(' ')
+    });
+
+ formlyConfig.setType({
+      name: 'horizontalInput',
+      extends: 'input',
+      wrapper: ['horizontalBootstrapLabel', 'bootstrapHasError']
+    });
+
   formlyConfig.setType({
     name: 'datepicker',
     templateUrl:  'datepicker.html',
-    wrapper: ['bootstrapLabel', 'bootstrapHasError'],
+    wrapper: ['horizontalBootstrapLabel', 'bootstrapHasError'],
     defaultOptions: {
       ngModelAttrs: ngModelAttrs,
       templateOptions: {
@@ -87,6 +107,8 @@ angular.module('mailMergeApp', ['mailMergeApp.auth', 'mailMergeApp.admin', 'mail
       };
     }]
   });
+
+
 });
 
 

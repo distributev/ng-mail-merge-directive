@@ -6,7 +6,7 @@ angular.module('mailMergeApp')
       templateUrl: 'components/mail-merge/mail-merge.html',
       restrict: 'EA',
       scope:{template:'=',labelButton:'=',labelButtonPopup:'=',dataid:'=?',tableid:'=?'},
-      controller:['$scope','formlyConfig','$http','$compile','$interpolate','mergeService',function($scope,formlyConfig,$http,$compile,$interpolate,mergeService){
+      controller:['$scope','formlyConfig','$http','$compile','$interpolate','mergeService','$modal',function($scope,formlyConfig,$http,$compile,$interpolate,mergeService,$modal){
       	$scope.popup = {
 		    opened: false
 		 };
@@ -230,13 +230,15 @@ angular.module('mailMergeApp')
 			 							$scope.fetchHistory();
 			 						}
 			 						
-			 						if($scope.sendEmail)
+			 						if($scope.sendEmail){
 							 			$http.get($scope.mailMerge.email.html).then(function(template){
 							 						var html = template.data;
 							 						$scope.mailMerge.email.html = html;
 							 						renderEmail();
-							 						
 							 			});
+			 						}
+							 						
+							 		
 						 			
 	
 			 				});
@@ -310,6 +312,17 @@ angular.module('mailMergeApp')
       		$('#'+$scope.formId).html($compile($scope.markup)($scope));
       	};
 
+      	$scope.openDocument = function(history){
+      		$modal.open({
+			      template:history.document_html
+			});
+      	};
+
+      	$scope.openEmail = function(history){
+      		$modal.open({
+			      template:history.email_html
+			});
+      	};
      
       	$scope.sendMessage = function(){
       		$scope.messages = [];
@@ -371,6 +384,7 @@ angular.module('mailMergeApp')
   			}
 			
       		setTimeout(function(){
+
       			var type = $scope.template.charAt(0).toUpperCase() + $scope.template.slice(1, $scope.template.length-1);
   				if($scope.history &&  $scope.history.mergeHistory){
   					$scope.history.mergeHistory.unshift({email_date:'Just now',sending:true,template:type});

@@ -12,21 +12,15 @@
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
-.width-8{
-  width:8%;
-}
+
 .margin-15{
   margin:10px 0 15px 15px;
 }
 .table > tbody > tr > td{
   border-top:none !important;
 }
-.scroll-y{
-  max-height: 680px;
-  overflow-y:auto;
-}
 .doc-scroll{
-  max-height:285px;
+  max-height:450px;
   overflow:auto;
 }
 .email-scroll{
@@ -39,9 +33,12 @@
 .fill{
   height: 100%
 }
-
+.form-scroll{
+  max-height: 540px;
+  overflow-y:auto;
+}
 @media screen and (min-width: 768px) {
-  .modal-dialog  {width:1200px !important;}
+  .modal-dialog.myModal  {width:1300px !important;}
 
 }
 
@@ -49,19 +46,3 @@
     height:750px;
 }
 
-.tooltip.document .tooltip-inner {
-    color: #880000;
-    background-color: #fff;
-    max-width: 552px;
-    max-height: 500px;
-    overflow: scroll;
-    border: 1px solid black;
-}
-
-.tooltip.email .tooltip-inner {
-    color: #880000;
-    background-color: #fff;
-    max-width: 350px;
-    max-height: 350px;
-    overflow: auto;
-}

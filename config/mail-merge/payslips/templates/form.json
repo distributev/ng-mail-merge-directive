@@ -1,7 +1,7 @@
 [
     {
       "key": "email.to",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "To",
         "type":"email"
@@ -11,7 +11,7 @@
     },
     {
       "key": "email.cc",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "CC",
         "type":"text"
@@ -20,7 +20,7 @@
     },
      {
       "key": "email.bcc",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "BCC",
         "type":"text"
@@ -29,7 +29,7 @@
     },
     {
       "key": "email.subject",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "Subject",
         "type":"text"
@@ -38,7 +38,7 @@
     },
      {
       "key": "code",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "Client Code",
         "type":"text"
@@ -48,7 +48,7 @@
     
     {
       "key": "name",
-      "type": "input",
+      "type": "horizontalInput",
       "templateOptions": {
         "label": "Client name",
         "type":"text"
@@ -59,14 +59,23 @@
     "key": "date",
     "type": "datepicker",
     "templateOptions": {
-      "label": "Date 1",
+      "label": "Date",
       "type": "text",
       "datepickerPopup": "dd-MMMM-yyyy"
     }
   },
     {
+      "key": "number",
+      "type": "horizontalInput",
+      "templateOptions": {
+        "label": "Number",
+        "type":"text"
+
+      }   
+    },
+    {
       "key": "product",
-      "type": "input",
+      "type": "horizontalInput",
        "templateOptions": {
         "label": "Product",
         "type":"text"
@@ -76,7 +85,29 @@
     },
     {
       "key": "fees",
-      "type": "input",
+      "type": "horizontalInput",
+       "templateOptions": {
+        "label": "Fees",
+        "type":"text"
+
+      }
+      
+    },
+
+    {
+      "key": "fees",
+      "type": "horizontalInput",
+       "templateOptions": {
+        "label": "Fees",
+        "type":"text"
+
+      }
+      
+    },
+    
+    {
+      "key": "fees",
+      "type": "horizontalInput",
        "templateOptions": {
         "label": "Fees",
         "type":"text"

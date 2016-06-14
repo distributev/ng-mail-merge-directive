@@ -3,13 +3,13 @@
 
 <div ng-if="myId == modalId">
 	 <div class="modal fade" id="{{modalId}}" role="dialog">
-	  	<div class="modal-dialog">
+	  	<div class="modal-dialog myModal">
 	  	 	<div class="modal-content">
 	  	 	    <div class="modal-body">
 	  	 	     	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		  	 	    <tabset	>
 		  	 	     	<tab active="tab.isActive" index="0" heading="Message">
-			  	 	     	<div class="pull-left col-xs-4 scroll-y">
+			  	 	     	<div class="pull-left col-xs-4 ">
 								<div class="margin-15" ng-show="dataid || tableid ">
 									<div>
 										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
@@ -18,10 +18,27 @@
 
 										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
 										<div class="clearfix"></div>
+										<div>
+											<button type="button" class="btn btn-primary btn-lg " ng-click="sendMessage()">{{labelButtonPopup}}</button>
+											<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
+											<span class ="text-success" ng-show="sending==false"> Great! Messages Sent</span>
+											<span class="text-danger" ng-show="invalidTo">Please enter recipient email address</span>
+
+										</div>
+										<div>
+												<div ng-show="!sending">
+													<button ng-show="!sending" class="label-success" ng-class="{'label-danger':history.mergeHistory[history.mergeHistory.length-1].status == 'fail'}">{{history.mergeHistory[history.mergeHistory.length-1].email_date | time }}</button>
+													<span ng-show="!sending">{{history.mergeHistory[history.mergeHistory.length-1].template}}</span>
+												</div>
+												<div ng-show="sending">
+													<span  class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+												</div>
+												
+										</div>
 									</div>
 								</div>
 								
-								<div>
+								<div class="form-scroll">
 									<div class="email" ng-show="sendEmail">
 											<div>
 												<div class="margin-15" id="{{formId}}"></div>
@@ -32,41 +49,40 @@
 												</textarea>
 											</div>
 									</div>
-									<button type="button" class="btn btn-primary btn-lg margin-15" ng-click="sendMessage()">{{labelButtonPopup}}</button>
-									<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
-									<span class ="text-success" ng-show="sending==false"> Great! Messages Sent</span>
-									<span class="text-danger" ng-show="invalidTo">Please enter recipient email address</span>
+									
 								</div>
 							</div>
 
-							<div  class="col-xs-8"  >
-								<div  class="" style="height: 325px">
-										<div class="form-group margin-15">
-												<label class="control-label width-8">To</label> 
-												<span>{{merge.email.to}}</span>
-										 </div>
-										 <div class="form-group margin-15">
-										 	    <label class="control-label width-8">CC</label>
-										 	    <span>{{merge.email.cc}}</span>
-										 </div>
-										 <div class="form-group margin-15"> 
-										 		<label class="control-label width-8">BCC</label>
-										 		<span>{{merge.email.bcc}}</span>
-										 </div>
-										 <div class="form-group margin-15">
-										 		<label class="control-label width-8">Subject</label> 
-										 		<span>{{merge.email.subject}}</span>
-										 </div>
-										 <div ng-show="sendhtml">
+							<div  class="col-xs-8" style="padding-left:0" >
+								<div style="height: 230px">
+										<div class="col-xs-4">
+											<div class="form-group margin-15">
+													<label class="control-label">To</label> 
+													<span class="margin-15">{{merge.email.to}}</span>
+											 </div>
+											 <div class="form-group margin-15">
+											 	    <label class="control-label">CC</label>
+											 	    <span class="margin-15">{{merge.email.cc}}</span>
+											 </div>
+											 <div class="form-group margin-15"> 
+											 		<label class="control-label">BCC</label>
+											 		<span class="margin-15">{{merge.email.bcc}}</span>
+											 </div>
+											 <div class="form-group margin-15">
+											 		<label class="control-label">Subject</label> 
+											 		<span class="margin-15">{{merge.email.subject}}</span>
+											 </div>
+										</div>
+										 <div class="col-xs-8" style="margin-left: -36px" ng-show="sendhtml">
 										 
-										 	<textarea ng-change="refresh()" class="email-scroll pull-left col-xs-10 email-edit" ng-model="mailMerge.email.html" ng-show="edit" id="data_row" rows="5" cols="50">						
+										 	<textarea ng-change="refresh()" class="email-scroll pull-left col-xs-11 email-edit" ng-model="mailMerge.email.html" ng-show="edit" id="data_row" rows="5" cols="50">						
 											</textarea>
 
-											<div ng-show="!edit" id="{{htmlPreviewId}}" class="email-scroll pull-left col-xs-10"></div>
-											<div class="col-xs-2 email-edit">
+											<div ng-show="!edit" id="{{htmlPreviewId}}" class="email-scroll pull-left col-xs-11"></div>
+											<div class="col-xs-1 email-edit">
 												<button ng-hide="edit" ng-click="edit = true" class="fill" style="
 											 	color:rgb(66,133,244);">
-													View Email source
+													View  Source
 											 	</button>
 
 											 	<button ng-show="edit" ng-click="edit = false;refresh()" class="fill" style="
@@ -85,11 +101,7 @@
 
 
 									
-									<div class=" col-md-12" ng-show="mailMerge.document.generatepdf">
-										<div>
-											<input bs-switch ng-model="mailMerge.attachpdf"  type="checkbox"  switch-size="mini" ng-true-value="true" ng-false-value="false"   switch-on-text="Yes" switch-off-text="No">&nbsp&nbsp<span>Attach below document to the message?</span>
-										</div>
-
+									<div class=" col-md-12"  style="height:470px;padding-left: 0" ng-show="mailMerge.document.generatepdf">
 										<div class=" doc-scroll" id="{{docPreviewId}}"></div>
 										<div id="doc-temp" ng-hide="true"></div>
 									</div>
@@ -97,21 +109,45 @@
 
 		  	 	     	</tab>
 		  	 	     	<tab index="1" ng-show="dataid || tableid" heading="Message History">
-			  	 	     	<div class="margin-15 scroll-y">
-								<label lass="table-responsive">History of communications</label>
-								<table class="table" >
+			  	 	     	<div class="margin-15">
+							  <div class="pull-left col-xs-5 ">
+								<div  ng-show="dataid || tableid ">
+									<div>
+										<div><button class="btn btn-md btn-primary pull-left"  style="margin-top:8px" ng-show="dataLength>0 && currentIndex>0" ng-click="previous()">&lt;</button></div>
+										 <span ng-hide="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 2px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
+										 <span ng-show="mailMerge.document.generatepdf" style="font-weight: bold;padding-top: 14px; font-size: 30px;" class="pull-left"> -{{merge.name}}- </span>
+
+										<div style="padding-top: 9px"><strong style="margin-left:5px" ng-show="dataLength>0">({{currentIndex+1}} of {{dataLength}})</strong><button class="btn btn-md btn-primary" ng-show="dataLength>0 && currentIndex<dataLength-1"  ng-click="next()">&gt;</button></div>
+										<div class="clearfix"></div>
+										<div>
+											<button type="button" class="btn btn-primary btn-lg " ng-click="sendMessage()">{{labelButtonPopup}}</button>
+											<span ng-show="sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Sending now...</span>
+											<span class ="text-success" ng-show="sending==false"> Great! Messages Sent</span>
+											<span class="text-danger" ng-show="invalidTo">Please enter recipient email address</span>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+							</div>
+								<table class="table margin-15" >
 
 									<tr dir-paginate="history in history.mergeHistory| orderBy:'-email_date'| itemsPerPage:page.itemPerPage" pagination-id="page.pageId" current-page="page.currentPageNumber">
-										<td ng-hide="history.sending"><button>{{history.email_date | time }}</button></td>
+										<td ng-hide="history.sending"><button  class="label-success" ng-class="{'label-danger':history.status == 'fail'}">{{history.email_date | time }}</button></td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{history.email_date}}</td>
 										<td>{{history.template}}</td>
 										<td ng-show="history.sending"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
 										<td ng-show="history.sending && mailMerge.document.generatepdf"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>
-										<td  ng-hide="history.sending"><a href="#"  tooltip-html-unsafe="{{history.email_html}}" tooltip-class="email" data-toggle="tooltip" tooltip-placement="right" ><span class="label label-success">{{history.email_text | stringCut}}</span></a>
+										<!-- <td  ng-hide="history.sending"><a href="#"  tooltip-html-unsafe="{{history.email_html}}" tooltip-class="email" data-toggle="tooltip" tooltip-placement="right" ><span class="label label-success">{{history.email_text | stringCut}}</span></a>
+										</td> -->
+										<td  ng-hide="history.sending"><a ng-click="openEmail(history)" href="#"><span class="label label-success">{{history.email_text | stringCut}}</span></a>
 										</td>
 
-										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#"  tooltip-html-unsafe="{{history.document_html}}"  tooltip-trigger="click" tooltip-class="document" data-toggle="tooltip" tooltip-placement="bottom" ><span class="label label-success">Click to View PDF</span></a>
-										<p  ng-show="history.pdf == true" ng-bind-html="history.document_html" compile-template></p>	
+									<!-- 	<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#"  tooltip-html-unsafe="{{history.document_html}}"  tooltip-trigger="click" tooltip-class="document" data-toggle="tooltip" tooltip-placement="bottom" ><span class="label label-success">Click to View PDF</span></a>	
+
+										</td> -->
+										<td ng-show="!history.sending && history.document_generatepdf == 1 "><a href="#"  ng-click="openDocument(history)">View Document</span></a>	
 
 										</td>
 										<td  ng-show="!history.sending && history.status == 'fail' "><a href="#" data-toggle="tooltip" data-placement="right" title={{history.email_text}}><span class="label label-danger">Error</span></a></td>
@@ -119,7 +155,7 @@
 								</table>
 
 								<div class="pull-right">        
-						              <dir-pagination-controls pagination-id="page.pageId" boundary-links="true"   auto-hide="false" template-url="dirPagination.html"></dir-pagination-controls>
+						              <dir-pagination-controls pagination-id="page.pageId" boundary-links="true"   template-url="dirPagination.html"></dir-pagination-controls>
 						        </div>
 							</div>
 		  	 	     	</tab>
@@ -137,8 +173,8 @@
 </script>
 
 <script type="text/ng-template" id="datepicker.html">
-      <p class="input-group">
-        <input  type="text"
+      <p class="input-group" style="margin-bottom:0px">
+        <input  style="margin-left: -11px;" type="text"
                 id="{{::id}}"
                 name="{{::id}}"
                 ng-model="model[options.key]"
@@ -148,7 +184,7 @@
                 is-open="datepicker.opened"
                 datepicker-options="to.datepickerOptions" />
         <span class="input-group-btn">
-            <button type="button" style="height:34px" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" style="height:34px;margin-left: -11px;" class="btn btn-default" ng-click="datepicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
       </p>
     </script>
