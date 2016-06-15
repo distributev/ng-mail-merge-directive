@@ -442,7 +442,7 @@ angular.module('mailMergeApp')
 		} 
 	};
 })
-.directive('timeCount',['$interval',function($interval){
+.directive('timeCount',['$interval','$filter',function($interval,$filter){
     return {
         restrict:'E',
         scope: { date: '=' },
