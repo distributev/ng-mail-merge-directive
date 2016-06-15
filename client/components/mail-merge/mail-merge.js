@@ -432,18 +432,6 @@ angular.module('mailMergeApp')
       }]
     };
   })
-.filter('time',function($filter){
-	return function(time){
-		var relativeTime = moment(moment.parseZone(time).local().format(), 'YYYY-MM-DD h:mm:ss a').fromNow();
-		
-		if(relativeTime.indexOf('day') !== -1 || relativeTime.indexOf('year')!==-1){
-			return $filter('date')(time, 'd MMMM yyyy');
-		}else{
-			return relativeTime;
-		}
-
-	};
-})
 .filter('stringCut',function(){
 	return function(string){
 		if(string){
@@ -453,4 +441,31 @@ angular.module('mailMergeApp')
 			return '';	
 		} 
 	};
-});
+})
+.directive('timeCount',['$interval',function($interval){
+    return {
+        restrict:'E',
+        scope: { date: '=' },
+        template:'<div>{{timeDiffer}}</div>',
+        link: function (scope, element) {
+            var time;
+            scope.$watch('date',function(newVal){
+                time = new Date(scope.date);
+                calc();
+            })
+            
+
+            function calc () {
+                var relativeTime = moment(moment.parseZone(time).local().format(), 'YYYY-MM-DD h:mm:ss a').fromNow();
+		
+				if(relativeTime.indexOf('day') !== -1 || relativeTime.indexOf('year')!==-1){
+					scope.timeDiffer =  $filter('date')(time, 'd MMMM yyyy');
+				}else{
+					scope.timeDiffer =  relativeTime;
+				}
+            }
+            
+            $interval(calc, 60000);
+        }
+    };
+}]);
