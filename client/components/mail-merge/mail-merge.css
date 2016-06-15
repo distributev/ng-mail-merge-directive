@@ -13,6 +13,14 @@
     to { transform: scale(1) rotate(360deg);}
 }
 
+.entity{
+  font-weight: bold;
+    padding-top: 3px;
+    font-size: 30px;
+    line-height: 1.42857143
+}
+
+
 .margin-15{
   margin:10px 0 15px 15px;
 }
@@ -20,12 +28,12 @@
   border-top:none !important;
 }
 .doc-scroll{
-  max-height:450px;
-  overflow:auto;
+  height:450px;
+  overflow:auto !important;
 }
 .email-scroll{
   max-height:200px;
-  overflow:auto;
+  overflow:auto !important;
 }
 .email-edit{
   height:200px;
@@ -37,6 +45,9 @@
   max-height: 540px;
   overflow-y:auto;
 }
+.padding-right-clear{
+  padding-right:0px !important;
+}
 @media screen and (min-width: 768px) {
   .modal-dialog.myModal  {width:1300px !important;}
 
@@ -47,12 +58,7 @@
 }
 
 
-body.modal-open,
- .modal-open .navbar-fixed-top,
- .modal-open .navbar-fixed-bottom {
- overflow:inherit; padding-right:inherit !important;
-}
- 
+body.modal-open { overflow:inherit; padding-right:inherit !important; }
 
 .modal-content{
   max-height: 600px; 
